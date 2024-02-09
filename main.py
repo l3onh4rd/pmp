@@ -3,6 +3,7 @@ Startpunkt
 '''
 # import external libraries 
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # import own modules
 import utils as utility
@@ -43,6 +44,35 @@ ideal_data_checker = DataChecker(df_ideal_import)
 for checker in [train_data_checker, test_data_checker, ideal_data_checker]:
     if not checker.check():
         raise DataCheckerError()
+
+# plot single
+for i in range(1,51):
+    plt.plot(df_ideal_import['x'], df_ideal_import['y' + str(i)])
+    plt.savefig('./export/ideal_plots_single/ideal' + str(i) + '.pdf')
+    plt.clf()
+
+# plot multiple together
+    # Is it possible to plot everything in one plot?
+    # Sort al y datas columnwise
+    # plot sets with nearly equal values
+        # like 0 -10, 10 to 100, 1000 to 10000
+
+# sort dataframe columns by first row
+df_ideal_columns_sorted = df_ideal_import[df_ideal_import.iloc[0].sort_values().index]
+# print(df_ideal_columns_sorted)
+
+plt.plot(df_ideal_import['x'], df_ideal_import['y25'])
+plt.plot(df_ideal_import['x'], df_ideal_import['y24'])
+plt.plot(df_ideal_import['x'], df_ideal_import['y30'])
+plt.plot(df_ideal_import['x'], df_ideal_import['y28'])
+plt.plot(df_ideal_import['x'], df_ideal_import['y21'])
+plt.plot(df_ideal_import['x'], df_ideal_import['y29'])
+plt.plot(df_ideal_import['x'], df_ideal_import['y26'])
+
+plt.plot(df_ideal_import['x'], df_ideal_import['y23'])
+plt.plot(df_ideal_import['x'], df_ideal_import['y22'])
+plt.plot(df_ideal_import['x'], df_ideal_import['y27'])
+plt.show()
 
 '''
 setup
