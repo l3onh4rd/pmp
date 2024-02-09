@@ -7,6 +7,7 @@ import pandas as pd
 # import own modules
 import utils as utility
 from classes.datachecker import DataChecker
+from exceptions.datacheckexception import DataCheckerError
 
 print('Hello from my Hausarbeit')
 
@@ -30,16 +31,18 @@ df_train_import = pd.read_csv('./data/train.csv')
 # ideal data import
 df_ideal_import = pd.read_csv('./data/ideal.csv')
 
-print(df_train_import.isnull().sum().sum())
-
 '''
 check and cleanup data
 '''
 
 # check
-train_data_checker = DataChecker(df_train_import)
-print(train_data_checker.check())
-train_data_checker.check_for_datatype()
+train_data_checker = DataChecker(df_test_import)
+test_data_checker = DataChecker(df_train_import)
+ideal_data_checker = DataChecker(df_ideal_import)
+
+for checker in [train_data_checker, test_data_checker, ideal_data_checker]:
+    if not checker.check():
+        raise DataCheckerError()
 
 '''
 setup

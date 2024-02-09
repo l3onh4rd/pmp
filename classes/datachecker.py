@@ -1,5 +1,5 @@
 '''
-Kommentar
+TODO Kommentar
 '''
 
 class DataChecker:
@@ -11,16 +11,18 @@ class DataChecker:
         return self.__data_frame
     
     # TODO necessary?
-    def set_creator(self, df):
+    def set_data_frame(self, df):
         self.__data_frame = df
 
     def check_for_missing_values(self):
+        # TODO explain comment
         return self.__data_frame.isnull().sum().sum() == 0
     
-    def check_for_datatype(self):
-        print(len(self.__data_frame.axes[1]))
-        print(self.__data_frame.dtypes[self.__data_frame.dtypes == 'float64'])
+    def check_for_duplicate_values(self):
+        # TODO explain comment
+        # checks only for duplicate rows
+        return self.__data_frame.duplicated().sum() == 0
     
     def check(self):
-        return self.check_for_missing_values()
+        return self.check_for_missing_values() and self.check_for_duplicate_values()
 
