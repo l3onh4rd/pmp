@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 # import own modules
 import utils as utility
 from classes.datachecker import DataChecker
-from exceptions.datacheckexception import DataCheckerError
 
 print('Hello from my Hausarbeit')
 
@@ -37,23 +36,23 @@ check and cleanup data
 '''
 
 # check
-train_data_checker = DataChecker(df_test_import)
-test_data_checker = DataChecker(df_train_import)
-ideal_data_checker = DataChecker(df_ideal_import)
+train_data_checker = DataChecker(df_train_import, 'Train Data')
+test_data_checker = DataChecker(df_test_import, 'Test Data')
+ideal_data_checker = DataChecker(df_ideal_import, 'Ideal Data')
 
 for checker in [train_data_checker, test_data_checker, ideal_data_checker]:
-    if not checker.check():
-        raise DataCheckerError()
+    checker.check()
+    print(f'Data Check Status - Success {checker.get_check_status()} for {checker.get_data_name()}')
 
 # plot single
-for i in range(1,51):
+for i in range(1,df_ideal_import.shape[1]):
     plt.plot(df_ideal_import['x'], df_ideal_import['y' + str(i)])
     plt.savefig('./export/ideal_plots_single/ideal' + str(i) + '.pdf')
     plt.clf()
 
 # plot multiple together
     # Is it possible to plot everything in one plot?
-    # Sort al y datas columnwise
+    # Sort all y datas columnwise
     # plot sets with nearly equal values
         # like 0 -10, 10 to 100, 1000 to 10000
 
