@@ -2,8 +2,7 @@
 TODO Kommentare
 '''
 
-from exceptions.DataCheckerException import DataCheckerException
-
+from datachecker_module.DataCheckerException import DataCheckerException
 
 class DataCheckerDuplicateDataException(DataCheckerException):
     def __init__(self, data_name):

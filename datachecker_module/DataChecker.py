@@ -2,9 +2,10 @@
 TODO Kommentar
 '''
 
-from exceptions.DataCheckerDuplicateDataException import DataCheckerDuplicateDataException
-from exceptions.DataCheckerMissingDataException import DataCheckerMissingDataException
-from exceptions.DataCheckerException import DataCheckerException
+from datachecker_module.DataCheckerDuplicateDataException import DataCheckerDuplicateDataException
+from datachecker_module.DataCheckerException import DataCheckerException
+from datachecker_module.DataCheckerMissingDataException import DataCheckerMissingDataException
+
 
 class DataChecker:
     def __init__(self, data_frame, data_name):

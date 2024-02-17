@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 # import own modules
 import utils as utility
-from classes.datachecker import DataChecker
+from datachecker_module.DataChecker import DataChecker
 
 print('Hello from my Hausarbeit')
 
