@@ -78,8 +78,6 @@ for idx, mask in enumerate(mask_list):
     plt.savefig('./export/ideal_plots_multiple/multiple' + str(idx) + '.pdf')
     plt.clf()
 
-print(df_ideal_columns_sorted)
-
 '''
 setup
 '''
