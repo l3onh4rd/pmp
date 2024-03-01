@@ -35,7 +35,7 @@ df_ideal_import = pd.read_csv('./data/ideal.csv')
 check and cleanup data
 '''
 
-# check
+# check data
 train_data_checker = DataChecker(df_train_import, 'Train Data')
 test_data_checker = DataChecker(df_test_import, 'Test Data')
 ideal_data_checker = DataChecker(df_ideal_import, 'Ideal Data')
@@ -44,13 +44,25 @@ for checker in [train_data_checker, test_data_checker, ideal_data_checker]:
     checker.check()
     print(f'Data Check Status - Success {checker.get_check_status()} for {checker.get_data_name()}')
 
-# plot single
+# plot single test
+sorted_df = df_test_import.sort_values(by='x', ascending=True)
+plt.scatter(sorted_df['x'], sorted_df['y'])
+plt.savefig('./export/test_plots_single/test.pdf')
+plt.clf()
+
+# plot single train
+for i in range(1,df_train_import.shape[1]):
+    plt.plot(df_train_import['x'], df_train_import['y' + str(i)])
+    plt.savefig('./export/train_plots_single/train' + str(i) + '.pdf')
+    plt.clf()
+
+# plot single ideal
 for i in range(1,df_ideal_import.shape[1]):
     plt.plot(df_ideal_import['x'], df_ideal_import['y' + str(i)])
     plt.savefig('./export/ideal_plots_single/ideal' + str(i) + '.pdf')
     plt.clf()
 
-# plot multiple together
+# plot multiple ideal
 
 # sort dataframe columns by first row
 df_ideal_columns_sorted = df_ideal_import[df_ideal_import.iloc[0].sort_values().index]
@@ -65,7 +77,7 @@ mask_0 = ((df_ideal_columns_sorted.loc[0] <= 1) & (df_ideal_columns_sorted.loc[0
 
 mask_list = [mask_0, mask_1, mask_2, mask_3, mask_4]
 
-# iterate of each mask and then each column to tp combine plots
+# iterate over each mask and then each column to combine plots
 for idx, mask in enumerate(mask_list):
     # convert to mask (pandas Series) to data frame and tranpose it
     mask_transpose = mask.to_frame().T
@@ -81,3 +93,8 @@ for idx, mask in enumerate(mask_list):
 '''
 setup
 '''
+
+# calculate the 'Steigung' of each ideal function and train function
+    # from point to point -> leads to progress of the value
+        # by that you can classify the functions
+# calculate the 'Steigung' of each train function
