@@ -4,6 +4,7 @@ Startpunkt
 # import external libraries 
 import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.neighbors import KNeighborsClassifier
 
 # import own modules
 import utils as utility
@@ -98,3 +99,54 @@ setup
     # from point to point -> leads to progress of the value
         # by that you can classify the functions
 # calculate the 'Steigung' of each train function
+
+def calculate_m(df_m):
+    data_with_m = {}
+
+    for column in df_m.columns:
+        if column == 'x':
+            continue
+        length_column = len(df_m[column])
+        m_list = []
+        for idx in range(0, length_column):
+            if idx == 0:
+                continue
+                
+            delta_y = df_m.loc[idx, column] - df_m.loc[idx - 1, column]
+            delta_x = df_m.loc[idx, 'x'] - df_m.loc[idx - 1, 'x']
+            m = delta_y / delta_x
+            m_list += [m]
+        data_with_m[column] = m_list
+
+    return pd.DataFrame(data_with_m)
+
+# 'steigung' of each point
+df_m_ideal = calculate_m(df_ideal_import)
+df_m_train = calculate_m(df_train_import)
+
+def generate_subset(df_source):
+    data_subset = {}
+    for column in df_source.columns:
+        subset_list = []
+        for idx in [0, 40, 80, 120, 160, 200, 240, 280, 320, 360, 398]:
+            subset_list += [df_source.loc[idx, column]]
+        data_subset[column] = subset_list
+    
+    return pd.DataFrame(data_subset)
+
+# only 10 examples of 'steigung' points
+df_subset_ideal = generate_subset(df_m_ideal)
+df_subset_train = generate_subset(df_m_train)
+
+# transpose -> each row is now an entry and each column in a feature
+
+df_subset_ideal_T = df_subset_ideal.T
+df_subset_train_T = df_subset_train.T
+
+print(df_subset_ideal_T)
+print(df_subset_train_T)
+
+# knn = KNeighborsClassifier(n_neighbors=50)
+# knn.fit(df_subset_ideal_T)
+
+# print(knn.predict(df_subset_train_T.loc['y1']))
