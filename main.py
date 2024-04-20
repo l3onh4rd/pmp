@@ -4,7 +4,6 @@ Startpunkt
 # import external libraries 
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.neighbors import KNeighborsClassifier
 
 # import own modules
 import utils as utility
@@ -145,8 +144,3 @@ df_subset_train_T = df_subset_train.T
 
 print(df_subset_ideal_T)
 print(df_subset_train_T)
-
-# knn = KNeighborsClassifier(n_neighbors=50)
-# knn.fit(df_subset_ideal_T)
-
-# print(knn.predict(df_subset_train_T.loc['y1']))
