@@ -4,6 +4,7 @@ Startpunkt
 # import external libraries 
 import pandas as pd
 import matplotlib.pyplot as plt
+import statistics as stat
 
 # import own modules
 import utils as utility
@@ -94,53 +95,48 @@ for idx, mask in enumerate(mask_list):
 setup
 '''
 
-# calculate the 'Steigung' of each ideal function and train function
-    # from point to point -> leads to progress of the value
-        # by that you can classify the functions
-# calculate the 'Steigung' of each train function
+# alternative calculation
 
-def calculate_m(df_m):
-    data_with_m = {}
+alt_ideal = df_ideal_import.drop(columns=['x'])
+alt_train = df_train_import.drop(columns=['x'])
 
-    for column in df_m.columns:
-        if column == 'x':
-            continue
-        length_column = len(df_m[column])
-        m_list = []
-        for idx in range(0, length_column):
-            if idx == 0:
-                continue
-                
-            delta_y = df_m.loc[idx, column] - df_m.loc[idx - 1, column]
-            delta_x = df_m.loc[idx, 'x'] - df_m.loc[idx - 1, 'x']
-            m = delta_y / delta_x
-            m_list += [m]
-        data_with_m[column] = m_list
+all_least_sq_errors_min = []
+all_least_sq_errors_idx = []
+# this saves all gaps from all points from each ideal fructions to each train function
+all_least_sq_erros_dump = []
+for idx_train, train_column in enumerate(alt_train.columns):
+    all_least_sq_errors = []
+    all_least_sq_erros_dump += [[]]
+    for ideal_column in alt_ideal.columns:
+        train_column_temp = alt_train[train_column]
+        ideal_column_temp = alt_ideal[ideal_column]
+        # print(train_column_temp)
+        # print(ideal_column_temp)
+        least_sq_errors = []
+        for element_train, element_ideal in zip(train_column_temp, ideal_column_temp):
+            # print(element_train)
+            # print(element_ideal)
+            # eventuell mit from sklearn.metrics import mean_squared_error
+            # mean_squared_error_sklearn = mean_squared_error(actual_values, predicted_values)
+            least_sq_errors += [(element_train - element_ideal) ** 2]
+            # print(least_sq_errors)
+        all_least_sq_errors += [stat.mean(least_sq_errors)]
+        all_least_sq_erros_dump[idx_train] += [least_sq_errors]
+        # print(all_least_sq_errors)
+    all_least_sq_errors_min += [min(all_least_sq_errors)]
+    all_least_sq_errors_idx += [all_least_sq_errors.index(min(all_least_sq_errors))]
 
-    return pd.DataFrame(data_with_m)
+print('#####')
+print(all_least_sq_errors_min)
+print(all_least_sq_errors_idx)
 
-# 'steigung' of each point
-df_m_ideal = calculate_m(df_ideal_import)
-df_m_train = calculate_m(df_train_import)
+for idx_of_list, idx in enumerate(all_least_sq_errors_idx):
+    print(alt_ideal.columns[idx])
+    # print all squared gaps from the matched function
+    # print('+++++')
+    # print(all_least_sq_erros_dump[idx_of_list][idx])
 
-def generate_subset(df_source):
-    data_subset = {}
-    for column in df_source.columns:
-        subset_list = []
-        for idx in [0, 40, 80, 120, 160, 200, 240, 280, 320, 360, 398]:
-            subset_list += [df_source.loc[idx, column]]
-        data_subset[column] = subset_list
-    
-    return pd.DataFrame(data_subset)
-
-# only 10 examples of 'steigung' points
-df_subset_ideal = generate_subset(df_m_ideal)
-df_subset_train = generate_subset(df_m_train)
-
-# transpose -> each row is now an entry and each column in a feature
-
-df_subset_ideal_T = df_subset_ideal.T
-df_subset_train_T = df_subset_train.T
-
-print(df_subset_ideal_T)
-print(df_subset_train_T)
+print('\n stats for dump')
+print(len(all_least_sq_erros_dump))
+print(len(all_least_sq_erros_dump[0]))
+print(len(all_least_sq_erros_dump[0][0]))
