@@ -6,6 +6,7 @@ import pandas as pd
 import sys
 
 # import own modules
+from database_module.DatabaseHandler import DatabaseHandler
 from function_module.FunctionDeterminer import FunctionDeterminer
 from plotter_module.BasicPlotter import BasicPlotter
 import utils as utility
@@ -20,7 +21,7 @@ delete the latest export
 EXPORT_CMD_STR = '--export'
 BACKUP_CMD_STR = '--backup'
 CMD_ARGUMENTS = sys.argv[1:]
-if (len(sys.argv[1:]) >= 1):
+if (len(CMD_ARGUMENTS) >= 1):
     if (BACKUP_CMD_STR in CMD_ARGUMENTS):
         utility.remove_latest_backup()
         utility.backup_latest_export()
@@ -52,7 +53,13 @@ if (EXPORT_CMD_STR in CMD_ARGUMENTS):
     basic_plotter.plot_basics()
     print('Basic plots plotted')
 
-# determine best fit function
+# save train and ideal to sqlite database
+database_handler = DatabaseHandler('./database/pmp.db')
+database_handler.save_df(df_train_import, 'train_data')
+database_handler.save_df(df_ideal_import, 'ideal_data')
+database_handler.get_amount_of_table_columns_and_rows()
+database_handler.close_connection()
 
+# determine best fitting function
 determiner = FunctionDeterminer(df_train_import, df_ideal_import)
 determiner.determine_best_fit()
