@@ -16,9 +16,11 @@ class FunctionDeterminer:
         alt_ideal = self.__ideal_functions.drop(columns=['x'])
         alt_train = self.__functions.drop(columns=['x'])
 
-        # 
+        column_count = len(alt_train.columns)
         all_least_sq_errors_min = []
         all_least_sq_errors_idx = []
+
+        print("\nStart to find the best fitting functions...\n")
 
         # iterate over all train function (4 functions)
         for idx_train, train_column in enumerate(alt_train.columns):
@@ -50,6 +52,9 @@ class FunctionDeterminer:
             # save all lowest least squared erros as list (for each train function one min value)
             all_least_sq_errors_idx += [all_least_sq_errors.index(min_least_sq_error)]
 
+            # print progress in percent
+            print(f"{int(((idx_train + 1)/column_count)*100)} % progress...")
+
         # print which function fits to which ideal function
         for idx_of_list, idx in enumerate(all_least_sq_errors_idx):
-            print('\nFunction ' + alt_train.columns[idx_of_list] + ' fits best to ' + alt_ideal.columns[idx])
+            print('Function ' + alt_train.columns[idx_of_list] + ' fits best to ' + alt_ideal.columns[idx])
