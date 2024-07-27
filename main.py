@@ -6,11 +6,11 @@ import pandas as pd
 import sys
 
 # import own modules
-from database_module.DatabaseHandler import DatabaseHandler
-from function_module.FunctionDeterminer import FunctionDeterminer
-from plotter_module.BasicPlotter import BasicPlotter
+from modules.DatabaseHandler import DatabaseHandler
+from modules.FunctionDeterminer import FunctionDeterminer
+from modules.BasicPlotter import BasicPlotter
 import utils as utility
-from datachecker_module.DataChecker import DataChecker
+from modules.datachecker_module.DataChecker import DataChecker
 
 # start with a clean up
 

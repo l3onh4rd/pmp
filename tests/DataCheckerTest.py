@@ -7,9 +7,9 @@ import pandas as pd
 import sys
 
 sys.path.append('../pmp')
-from datachecker_module.DataChecker import DataChecker
-from datachecker_module.DataCheckerMissingDataException import DataCheckerMissingDataException
-from datachecker_module.DataCheckerDuplicateDataException import DataCheckerDuplicateDataException
+from modules.datachecker_module.DataChecker import DataChecker
+from modules.datachecker_module.DataCheckerMissingDataException import DataCheckerMissingDataException
+from modules.datachecker_module.DataCheckerDuplicateDataException import DataCheckerDuplicateDataException
 
 class TestDataChecker(unittest.TestCase):
 

@@ -7,7 +7,7 @@ import sys
 import pandas as pd
 
 sys.path.append('../pmp')
-from function_module.FunctionDeterminer import FunctionDeterminer
+from modules.FunctionDeterminer import FunctionDeterminer
 
 
 class FunctionDeterminerTest(unittest.TestCase):

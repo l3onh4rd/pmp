@@ -7,7 +7,7 @@ import sys
 import pandas as pd
 
 sys.path.append('../pmp')
-from database_module.DatabaseHandler import DatabaseHandler
+from modules.DatabaseHandler import DatabaseHandler
 
 class FunctionDeterminerTest(unittest.TestCase):
 

@@ -2,7 +2,7 @@
 TODO Kommentare
 '''
 
-from datachecker_module.DataCheckerException import DataCheckerException
+from modules.datachecker_module.DataCheckerException import DataCheckerException
 
 class DataCheckerMissingDataException(DataCheckerException):
     def __init__(self, data_name):

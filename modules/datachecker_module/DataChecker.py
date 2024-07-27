@@ -2,9 +2,9 @@
 TODO Kommentar
 '''
 
-from datachecker_module.DataCheckerDuplicateDataException import DataCheckerDuplicateDataException
-from datachecker_module.DataCheckerException import DataCheckerException
-from datachecker_module.DataCheckerMissingDataException import DataCheckerMissingDataException
+from modules.datachecker_module.DataCheckerDuplicateDataException import DataCheckerDuplicateDataException
+from modules.datachecker_module.DataCheckerException import DataCheckerException
+from modules.datachecker_module.DataCheckerMissingDataException import DataCheckerMissingDataException
 
 
 class DataChecker:
