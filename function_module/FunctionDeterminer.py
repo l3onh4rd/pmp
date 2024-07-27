@@ -17,6 +17,7 @@ class FunctionDeterminer:
         column_count = len(self.__functions.columns)
         all_least_sq_errors_min = []
         all_least_sq_errors_idx = []
+        best_fitting_functions = []
 
         print("\nStart to find the best fitting functions...\n")
 
@@ -43,8 +44,16 @@ class FunctionDeterminer:
             all_least_sq_errors_min += [min_least_sq_error]
             # save all lowest least squared erros as list (for each train function one min value)
             all_least_sq_errors_idx += [all_least_sq_errors.index(min_least_sq_error)]
+
+            function = self.__functions.columns[idx_train]
+            best_fitting_function = self.__ideal_functions.columns[all_least_sq_errors.index(min_least_sq_error)]
+
+            # save best fitting function to a list
+            best_fitting_functions += [(function, best_fitting_function)]
             # print best fitting function and progress
-            print(self.print_best_fitting_function(idx_train, column_count, self.__functions.columns[idx_train], self.__ideal_functions.columns[all_least_sq_errors.index(min_least_sq_error)]))
+            print(self.print_best_fitting_function(idx_train, column_count, function, best_fitting_function))
+
+        return best_fitting_functions
     
     @staticmethod
     def print_best_fitting_function(idx, column_count, function, fitting_function):

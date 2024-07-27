@@ -13,6 +13,7 @@ class DatabaseHandler:
         df.to_sql(table_name, self.__conn, if_exists='replace', index=False)
     
     def get_amount_of_table_columns_and_rows(self):
+        output_list = []
         cursor = self.__conn.cursor()
 
         cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
@@ -24,7 +25,9 @@ class DatabaseHandler:
             row_count = cursor.fetchone()[0]
             cursor.execute(f"PRAGMA table_info({table_name})")
             columns_count = len(cursor.fetchall())
-            print(f"Table '{table_name}' has {columns_count} columns and {row_count} rows.")
+            output_list += [f"Table {table_name} has {columns_count} columns and {row_count} rows."]
+        
+        return output_list
     
     def close_connection(self):
         self.__conn.close()
