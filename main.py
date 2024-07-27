@@ -63,3 +63,4 @@ database_handler.close_connection()
 # determine best fitting function
 determiner = FunctionDeterminer(df_train_import, df_ideal_import)
 best_fitting = determiner.determine_best_fit()
+print(best_fitting)

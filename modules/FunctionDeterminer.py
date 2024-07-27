@@ -54,7 +54,7 @@ class FunctionDeterminer:
             print(self.print_best_fitting_function(idx_train, column_count, function, best_fitting_function))
 
         return best_fitting_functions
-    
+
     @staticmethod
     def print_best_fitting_function(idx, column_count, function, fitting_function):
         return f"({idx + 1}/{column_count} - {int(((idx + 1)/column_count)*100)}%) Function {function} fits best to {fitting_function}"
