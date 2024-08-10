@@ -4,10 +4,16 @@ class to determine which ideal functions fits best
 '''
 
 import statistics as stat
+import pandas as pd
+import sys
 from sklearn.metrics import mean_squared_error
+
+from modules.DatabaseHandler import DatabaseHandler
+sys.path.append('../pmp')
 
 class FunctionDeterminer:
     def __init__(self, functions, ideal_functions):
+        self.__sq_error_dict = {'x': functions['x'].values}
         # drop x value column of the data frames immidiately
         self.__functions = functions.drop(columns=['x'])
         self.__ideal_functions = ideal_functions.drop(columns=['x'])
@@ -18,6 +24,7 @@ class FunctionDeterminer:
         all_least_sq_errors_min = []
         all_least_sq_errors_idx = []
         best_fitting_functions = []
+        best_fitting_functions_sq_errors_df = pd.DataFrame({'x': [self.__sq_error_dict]})
 
         print("\nStart to find the best fitting functions...\n")
 
@@ -50,10 +57,16 @@ class FunctionDeterminer:
 
             # save best fitting function to a list
             best_fitting_functions += [(function, best_fitting_function)]
+
+            # save sq errors to database
+            sq_errors_for_database = self.calc_least_sq_errors_for_points(self.__functions[function], self.__ideal_functions[best_fitting_function])
+            best_fitting_functions_sq_errors_df[function] = [sq_errors_for_database]
+            self.__sq_error_dict[function] = sq_errors_for_database
+
             # print best fitting function and progress
             print(self.print_best_fitting_function(idx_train, column_count, function, best_fitting_function))
 
-        return best_fitting_functions
+        return best_fitting_functions, pd.DataFrame(self.__sq_error_dict)
 
     @staticmethod
     def print_best_fitting_function(idx, column_count, function, fitting_function):

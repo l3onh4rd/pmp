@@ -57,10 +57,13 @@ if (EXPORT_CMD_STR in CMD_ARGUMENTS):
 database_handler = DatabaseHandler('./database/pmp.db')
 database_handler.save_df(df_train_import, 'train_data')
 database_handler.save_df(df_ideal_import, 'ideal_data')
-print(database_handler.get_amount_of_table_columns_and_rows())
-database_handler.close_connection()
 
 # determine best fitting function
 determiner = FunctionDeterminer(df_train_import, df_ideal_import)
-best_fitting = determiner.determine_best_fit()
+best_fitting, sq_error_df = determiner.determine_best_fit()
+database_handler.save_df(sq_error_df, 'squared_errors_for_best_fitting_functions')
+
+print(database_handler.get_amount_of_table_columns_and_rows())
+# close database connection
+database_handler.close_connection()
 print(best_fitting)
