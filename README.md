@@ -1,1 +1,33 @@
 # Hausarbeit Programmieren mit Python
+
+## How to run the script?
+
+### Default script
+
+```console
+python main.py
+```
+
+### With optional export
+
+```console
+python main.py --export
+```
+
+### With additional backup
+
+```console
+python main.py --backup
+```
+
+### Backup and export combined
+
+```console
+python main.py --export --backup
+```
+
+## How to run unit tests?
+
+```console
+python -m unittest discover -s .\tests\ -p '*Test.py'
+```
