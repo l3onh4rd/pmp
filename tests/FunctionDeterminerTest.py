@@ -22,7 +22,7 @@ class FunctionDeterminerTest(unittest.TestCase):
         self.assertEqual(self.function_determiner.calc_least_sq_errors_for_points([1,2,3,4,5],[6,3,8,5,9]), [25.0,1.0,25.0,1.0,16.0])
 
     def test_determine_best_fit(self):
-        self.assertEqual(self.function_determiner.determine_best_fit(), [('y1', 'y2'),('y2', 'y1')])
+        self.assertEqual(self.function_determiner.determine_best_fit()[0], [('y1', 'y2'),('y2', 'y1')])
 
 if __name__ == '__main__':
     unittest.main()
