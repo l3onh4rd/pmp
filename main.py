@@ -4,6 +4,7 @@ Startpunkt
 # import external libraries 
 import pandas as pd
 import sys
+import matplotlib.pyplot as plt
 
 # import own modules
 from modules.DatabaseHandler import DatabaseHandler
@@ -67,3 +68,25 @@ print(database_handler.get_amount_of_table_columns_and_rows())
 # close database connection
 database_handler.close_connection()
 print(best_fitting)
+
+# print plot with sq_erros
+
+x_data = df_train_import['x'].tolist()
+
+for train, best_fit in best_fitting:
+    plt.plot(x_data, df_train_import[train], label=f'train data')
+    plt.plot(x_data, df_ideal_import[best_fit], label=f'best fit')
+
+# Add labels and title
+plt.xlabel('x')
+plt.ylabel(train)
+plt.title('Basic Line Chart')
+
+# Show the plot
+plt.show()
+plt.clf()
+
+for train, best_fit in best_fitting:
+    plt.bar(x_data, sq_error_df[train])
+
+plt.show()
