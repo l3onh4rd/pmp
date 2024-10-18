@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 # import own modules
 from modules.DatabaseHandler import DatabaseHandler
 from modules.FunctionDeterminer import FunctionDeterminer
-from modules.BasicPlotter import BasicPlotter
+from modules.basic_plotter_module.BasicPlotter import BasicPlotter
 import utils as utility
 from modules.datachecker_module.DataChecker import DataChecker
 
@@ -52,7 +52,7 @@ for checker in [train_data_checker, test_data_checker, ideal_data_checker]:
 if (EXPORT_CMD_STR in CMD_ARGUMENTS):
     basic_plotter = BasicPlotter(df_ideal_import, df_train_import, df_test_import)
     basic_plotter.plot_basics()
-    print('Basic plots plotted')
+    print('\nBasic plots plotted')
 
 # save train and ideal to sqlite database
 database_handler = DatabaseHandler('./database/pmp.db')
