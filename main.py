@@ -18,7 +18,7 @@ CMD_ARGUMENTS = sys.argv[1:]
 if (BACKUP_CMD_STR in CMD_ARGUMENTS):
     utility.remove_latest_backup()
     utility.backup_latest_export()
-    print('Latest export saved as backup...')
+    print('\nLOG INFO: Latest export saved as backup...\n')
 
 # test data import
 df_test_import = pd.read_csv('./data/test.csv')
@@ -34,13 +34,13 @@ ideal_data_checker = DataChecker(df_ideal_import, 'Ideal Data')
 
 for checker in [train_data_checker, test_data_checker, ideal_data_checker]:
     checker.check()
-    print(f'Data Check Status - Success {checker.get_check_status()} for {checker.get_data_name()}')
+    print(f'LOG INFO: Data Check Status - Success {checker.get_check_status()} for {checker.get_data_name()}')
 
 # plot basic data
 if (EXPORT_CMD_STR in CMD_ARGUMENTS):
     basic_plotter = BasicPlotter(df_ideal_import, df_train_import, df_test_import)
     basic_plotter.plot_basics()
-    print('\nBasic plots plotted')
+    print('\nLOG INFO: Basic plots plotted')
 
 # save train and ideal to sqlite database
 database_handler = DatabaseHandler('./database/pmp.db')
@@ -53,7 +53,8 @@ best_fitting, sq_error_df = determiner.determine_best_fit()
 database_handler.save_df(sq_error_df, 'squared_errors_for_best_fitting_functions')
 
 # print database meta information
-for table_info in database_handler.get_amount_of_table_columns_and_rows(): print(table_info)
+print('\nDATABASE INFO:')
+for table_info in database_handler.get_amount_of_table_columns_and_rows(): print('\t' + table_info)
 # close database connection
 database_handler.close_connection()
 print(best_fitting)
@@ -79,3 +80,5 @@ for train, best_fit in best_fitting:
     plt.bar(x_data, sq_error_df[train])
 
 plt.show()
+
+print('LOG INFO: Finished')

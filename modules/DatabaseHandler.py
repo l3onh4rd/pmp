@@ -15,6 +15,7 @@ class DatabaseHandler:
     # takes data frame and saves it to the local sqlite db file
     def save_df(self, df: pd.DataFrame, table_name):
         df.to_sql(table_name, self.__conn, if_exists='replace', index=False)
+        print(f'DATABASE INFO: {table_name} saved in database')
     
     # return a list of strings with table name, rows and columns amount
     def get_amount_of_table_columns_and_rows(self):

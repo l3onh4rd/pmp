@@ -26,7 +26,7 @@ class FunctionDeterminer:
         best_fitting_functions = []
         best_fitting_functions_sq_errors_df = pd.DataFrame({'x': [self.__sq_error_dict]})
 
-        print("\nStart to find the best fitting functions...\n")
+        print("\nLOG INFO: Start to find the best fitting functions...\n")
 
         # iterate over all train function (4 functions)
         for idx_train, train_column in enumerate(self.__functions.columns):
@@ -70,7 +70,7 @@ class FunctionDeterminer:
 
     @staticmethod
     def print_best_fitting_function(idx, column_count, function, fitting_function):
-        return f"({idx + 1}/{column_count} - {int(((idx + 1)/column_count)*100)}%) Function {function} fits best to {fitting_function}"
+        return f"PROCESSING INFO: ({idx + 1}/{column_count} - {int(((idx + 1)/column_count)*100)}%) Function {function} fits best to {fitting_function}"
     
     @staticmethod
     def calc_least_sq_errors_for_points(train_column, ideal_column):
