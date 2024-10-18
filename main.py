@@ -52,7 +52,8 @@ determiner = FunctionDeterminer(df_train_import, df_ideal_import)
 best_fitting, sq_error_df = determiner.determine_best_fit()
 database_handler.save_df(sq_error_df, 'squared_errors_for_best_fitting_functions')
 
-print(database_handler.get_amount_of_table_columns_and_rows())
+# print database meta information
+for table_info in database_handler.get_amount_of_table_columns_and_rows(): print(table_info)
 # close database connection
 database_handler.close_connection()
 print(best_fitting)
