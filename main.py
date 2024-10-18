@@ -1,6 +1,3 @@
-'''
-Startpunkt
-'''
 # import external libraries 
 import pandas as pd
 import sys
@@ -13,24 +10,15 @@ from modules.basic_plotter_module.BasicPlotter import BasicPlotter
 import utils as utility
 from modules.datachecker_module.DataChecker import DataChecker
 
-# start with a clean up
+# first copy the latest export to a backup folder (overwriting existing ones), delete the latest export
 
-'''
-first copy the latest results to a backup folder (overwrite existing ones)
-delete the latest export
-'''
 EXPORT_CMD_STR = '--export'
 BACKUP_CMD_STR = '--backup'
 CMD_ARGUMENTS = sys.argv[1:]
-if (len(CMD_ARGUMENTS) >= 1):
-    if (BACKUP_CMD_STR in CMD_ARGUMENTS):
-        utility.remove_latest_backup()
-        utility.backup_latest_export()
-        print('Latest export saved as backup...')
-
-'''
-import data
-'''
+if (BACKUP_CMD_STR in CMD_ARGUMENTS):
+    utility.remove_latest_backup()
+    utility.backup_latest_export()
+    print('Latest export saved as backup...')
 
 # test data import
 df_test_import = pd.read_csv('./data/test.csv')
