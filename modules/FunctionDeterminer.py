@@ -1,12 +1,12 @@
 '''
-TODO
-class to determine which ideal functions fits best
+FunctionDeterminer class
+- class to determine best fitting function between input data and ideal functions
 '''
 
 import statistics as stat
 import pandas as pd
 import sys
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import root_mean_squared_error
 
 from modules.DatabaseHandler import DatabaseHandler
 sys.path.append('../pmp')
@@ -14,16 +14,19 @@ sys.path.append('../pmp')
 class FunctionDeterminer:
     def __init__(self, functions, ideal_functions):
         self.__sq_error_dict = {'x': functions['x'].values}
-        # drop x value column of the data frames immidiately
+        # drop x value column of the data frames immediately
         self.__functions = functions.drop(columns=['x'])
         self.__ideal_functions = ideal_functions.drop(columns=['x'])
 
+    # determines best for for all functions
     def determine_best_fit(self):
 
+        # amount of input functions
         column_count = len(self.__functions.columns)
         all_least_sq_errors_min = []
         all_least_sq_errors_idx = []
         best_fitting_functions = []
+        # prepare df for least squared errors
         best_fitting_functions_sq_errors_df = pd.DataFrame({'x': [self.__sq_error_dict]})
 
         print("\nLOG INFO: Start to find the best fitting functions...\n")
@@ -68,10 +71,12 @@ class FunctionDeterminer:
 
         return best_fitting_functions, pd.DataFrame(self.__sq_error_dict)
 
+    # print status message
     @staticmethod
     def print_best_fitting_function(idx, column_count, function, fitting_function):
         return f"PROCESSING INFO: ({idx + 1}/{column_count} - {int(((idx + 1)/column_count)*100)}%) Function {function} fits best to {fitting_function}"
     
+    # returns a list of squared errors for all values of train and ideal function
     @staticmethod
     def calc_least_sq_errors_for_points(train_column, ideal_column):
         least_sq_errors = []
@@ -79,6 +84,6 @@ class FunctionDeterminer:
         # iterate over all points (400 points for each column)
         for element_train, element_ideal in zip(train_column, ideal_column):
             # calculate squared error for each point and save them in a list
-            least_sq_errors += [mean_squared_error([element_ideal],[element_train])]
+            least_sq_errors += [root_mean_squared_error([element_ideal],[element_train])]
         
         return least_sq_errors

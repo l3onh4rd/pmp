@@ -1,14 +1,10 @@
-'''
-Unit Test class to test FunctionDeterminer class
-'''
-
+# Unit Test class to test FunctionDeterminer class
 import unittest
 import sys
 import pandas as pd
 
 sys.path.append('../pmp')
 from modules.FunctionDeterminer import FunctionDeterminer
-
 
 class FunctionDeterminerTest(unittest.TestCase):
 

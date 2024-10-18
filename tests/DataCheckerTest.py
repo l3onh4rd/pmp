@@ -1,7 +1,4 @@
-'''
-Unit Test class to test DataChecker class
-'''
-
+# Unit Test class to test DataChecker class
 import unittest
 import pandas as pd
 import sys
