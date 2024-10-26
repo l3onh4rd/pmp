@@ -1,17 +1,21 @@
-# Unit Test class to test DatabaseHandler class
+'''
+DatabaseHandlerTest class
+
+- unit tests for DatabaseHandler class
+'''
 import unittest
 import sys
 
 sys.path.append('../pmp')
 from modules.DatabaseHandler import DatabaseHandler
 
-class FunctionDeterminerTest(unittest.TestCase):
+class DatabaseHandlerTest(unittest.TestCase):
 
     def setUp(self):
         self.database_handler = DatabaseHandler('./database/pmp.db')
     
     def tearDown(self):
-        print('Close Database Conmnection')
+        print('Close Database Connnection')
         self.database_handler.close_connection()
 
     def test_get_amount_of_table_columns_and_rows(self):

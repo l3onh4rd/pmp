@@ -1,5 +1,7 @@
 '''
-Exception to raise if anything fail during the export.
+BasicPlotterFailedException class
+
+- Exception to raise if anything fails during the export.
 '''
 
 class BasicPlotterFailedException(Exception):

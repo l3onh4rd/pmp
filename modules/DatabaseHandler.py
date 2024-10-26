@@ -1,7 +1,9 @@
 '''
 DatabaseHandler class
+
 - initialize a sqlite connection
 - saves data to database (.db) file
+- close database connection
 '''
 
 import sqlite3
@@ -17,7 +19,7 @@ class DatabaseHandler:
         df.to_sql(table_name, self.__conn, if_exists='replace', index=False)
         print(f'DATABASE INFO: {table_name} saved in database')
     
-    # return a list of strings with table name, rows and columns amount
+    # returns a list of strings with table name, rows and columns amount
     def get_amount_of_table_columns_and_rows(self):
         output_list = []
         cursor = self.__conn.cursor()

@@ -22,9 +22,7 @@ class BasicPlotter:
     IDEAL_EXPORT_FOLDER = './export/ideal_plots_single/ideal'
     IDEAL_GROUPS_EXPORT_FOLDER = './export/ideal_plots_multiple/multiple'
 
-    '''
-        Executes all plots
-    '''
+    # executes all plots
     def plot_basics(self):
         self.plot_ideal()
         self.plot_groups_of_ideal()
@@ -74,7 +72,8 @@ class BasicPlotter:
             raise BasicPlotterFailedException()
 
     '''
-        To get a better overview of all ideal functions it plots all functions grouped by its scale. Some ideal functions scale their y values from 0 to 1 but others from 20k to -20k.
+        To get a better overview of all ideal functions it plots all functions grouped by its scale.
+        Some ideal functions scale their y values from 0 to 1 but others from 20k to -20k.
         The lowest scales are just not visible if you put all ideal functions together in one plot.
         For a better comparability masks are created to group function with similiar scale
     '''

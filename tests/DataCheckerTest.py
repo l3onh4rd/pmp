@@ -1,4 +1,9 @@
-# Unit Test class to test DataChecker class
+'''
+DataCheckerTest class
+
+- unit tests for DataChecker class
+'''
+
 import unittest
 import pandas as pd
 import sys
@@ -8,7 +13,7 @@ from modules.datachecker_module.DataChecker import DataChecker
 from modules.datachecker_module.DataCheckerMissingDataException import DataCheckerMissingDataException
 from modules.datachecker_module.DataCheckerDuplicateDataException import DataCheckerDuplicateDataException
 
-class TestDataChecker(unittest.TestCase):
+class DataCheckerTest(unittest.TestCase):
 
     def setUp(self):
         self.test_duplicate_data = pd.read_csv('./tests/data/duplicate.csv')
