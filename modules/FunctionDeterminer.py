@@ -1,5 +1,6 @@
 '''
 FunctionDeterminer class
+
 - class to determine best fitting function between input data and ideal functions
 '''
 
@@ -8,13 +9,12 @@ import pandas as pd
 import sys
 from sklearn.metrics import root_mean_squared_error
 
-from modules.DatabaseHandler import DatabaseHandler
 sys.path.append('../pmp')
 
 class FunctionDeterminer:
     def __init__(self, functions, ideal_functions):
         self.__sq_error_dict = {'x': functions['x'].values}
-        # drop x value column of the data frames immediately
+        # drop x value column of the data frames immediately as it is not needed
         self.__functions = functions.drop(columns=['x'])
         self.__ideal_functions = ideal_functions.drop(columns=['x'])
 
@@ -84,6 +84,6 @@ class FunctionDeterminer:
         # iterate over all points (400 points for each column)
         for element_train, element_ideal in zip(train_column, ideal_column):
             # calculate squared error for each point and save them in a list
-            least_sq_errors += [root_mean_squared_error([element_ideal],[element_train])]
+            least_sq_errors += [root_mean_squared_error([element_ideal],[element_train])**2]
         
         return least_sq_errors
