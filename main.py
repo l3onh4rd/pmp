@@ -15,6 +15,10 @@ from modules.datachecker_module.DataChecker import DataChecker
 EXPORT_CMD_STR = '--export'
 BACKUP_CMD_STR = '--backup'
 CMD_ARGUMENTS = sys.argv[1:]
+
+# check for required export and backup directory
+utility.check_for_dirs()
+
 if (BACKUP_CMD_STR in CMD_ARGUMENTS):
     utility.remove_latest_backup()
     utility.backup_latest_export()

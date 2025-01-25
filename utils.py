@@ -17,6 +17,18 @@ def remove_latest_backup():
         shutil.rmtree('backup')
 
 """
+Checks for the existence of a backup and export folder. If they not exist, they are created.
+"""
+def check_for_dirs():
+    if os.path.isdir('backup'):
+        os.mkdir('backup')
+        print("\nLOG INFO:Created backup directory since it was not found")
+
+    if os.path.isdir('export'):
+        os.mkdir('export')
+        print("\nLOG INFO:Created export directory since it was not found")
+
+"""
 Takes the result variable, add a header row
 """
 def create_result_csv(result):
