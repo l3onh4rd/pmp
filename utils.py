@@ -20,11 +20,11 @@ def remove_latest_backup():
 Checks for the existence of a backup and export folder. If they not exist, they are created.
 """
 def check_for_dirs():
-    if os.path.isdir('backup'):
+    if not os.path.isdir('backup'):
         os.mkdir('backup')
         print("\nLOG INFO:Created backup directory since it was not found")
 
-    if os.path.isdir('export'):
+    if not os.path.isdir('export'):
         os.mkdir('export')
         os.mkdir('export/ideal_plots_multiple')
         os.mkdir('export/ideal_plots_single')
