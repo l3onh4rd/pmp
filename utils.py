@@ -34,11 +34,11 @@ def check_for_dirs():
         print("\nLOG INFO: Created backup directory since it was not found")
 
     if not os.path.isdir('export'):
-        export_path.mkdir('export')
-        export_ideal_plots_multiple.mkdir('export/ideal_plots_multiple')
-        export_ideal_plots_single.mkdir('export/ideal_plots_single')
-        export_test_plots_single.mkdir('export/test_plots_single')
-        export_train_plots_single.mkdir('export/train_plots_single')
+        export_path.mkdir()
+        export_ideal_plots_multiple.mkdir()
+        export_ideal_plots_single.mkdir()
+        export_test_plots_single.mkdir()
+        export_train_plots_single.mkdir()
         print("\nLOG INFO: Created export directories since they were not found")
 
 """
