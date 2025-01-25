@@ -52,12 +52,14 @@ determiner = FunctionDeterminer(df_train_import, df_ideal_import)
 best_fitting, sq_error_df = determiner.determine_best_fit()
 database_handler.save_df(sq_error_df, 'squared_errors_for_best_fitting_functions')
 
+utility.create_result_csv(best_fitting)
+print('\nLOG INFO: Result csv file created')
+
 # print database meta information
 print('\nDATABASE INFO:')
 for table_info in database_handler.get_amount_of_table_columns_and_rows(): print('\t' + table_info)
 # close database connection
 database_handler.close_connection()
-print(best_fitting)
 
 # print plot with sq_erros
 
