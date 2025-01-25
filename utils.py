@@ -6,7 +6,8 @@ Saves latest content from the export directory to the backup directory.
 Just copies the whole content fromt one directory to the other.
 """
 def backup_latest_export():
-    shutil.copytree('export', 'backup', dirs_exist_ok=True)
+    if os.path.isdir('backup') and os.path.isdir('export'):
+        shutil.copytree('export', 'backup', dirs_exist_ok=True)
 
 """
 Clears the backup directory.
