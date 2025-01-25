@@ -1,5 +1,11 @@
 # Hausarbeit Programmieren mit Python
 
+## How to use requirements.txt file?
+
+```console
+pip install -r requirements.txt
+```
+
 ## How to run the script?
 
 ### Default script
