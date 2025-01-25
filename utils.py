@@ -1,5 +1,6 @@
 # utils for pmp script
 import shutil, os, csv, copy
+from pathlib import Path
 
 """
 Saves latest content from the export directory to the backup directory.
@@ -20,17 +21,25 @@ def remove_latest_backup():
 Checks for the existence of a backup and export folder. If they not exist, they are created.
 """
 def check_for_dirs():
+
+    backup_path = Path('backup')
+    export_path = Path('export')
+    export_ideal_plots_multiple = Path('export/ideal_plots_multiple')
+    export_ideal_plots_single = Path('export/ideal_plots_single')
+    export_test_plots_single = Path('export/test_plots_single')
+    export_train_plots_single = Path('export/train_plots_single')
+
     if not os.path.isdir('backup'):
-        os.mkdir('backup')
-        print("\nLOG INFO:Created backup directory since it was not found")
+        backup_path.mkdir()
+        print("\nLOG INFO: Created backup directory since it was not found")
 
     if not os.path.isdir('export'):
-        os.mkdir('export')
-        os.mkdir('export/ideal_plots_multiple')
-        os.mkdir('export/ideal_plots_single')
-        os.mkdir('export/test_plots_single')
-        os.mkdir('export/train_plots_single')
-        print("\nLOG INFO:Created export directories since they were not found")
+        export_path.mkdir('export')
+        export_ideal_plots_multiple.mkdir('export/ideal_plots_multiple')
+        export_ideal_plots_single.mkdir('export/ideal_plots_single')
+        export_test_plots_single.mkdir('export/test_plots_single')
+        export_train_plots_single.mkdir('export/train_plots_single')
+        print("\nLOG INFO: Created export directories since they were not found")
 
 """
 Takes the result variable, add a header row
