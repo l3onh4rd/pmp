@@ -11,10 +11,10 @@ def backup_latest_export():
         shutil.copytree('export', 'backup', dirs_exist_ok=True)
 
 """
-Clears the backup directory.
+Clears the backup directory if it exists and has any files or subfolder.
 """
 def remove_latest_backup():
-    if os.path.isdir('backup'):
+    if os.path.isdir('backup') and os.listdir('backup'):
         shutil.rmtree('backup')
 
 """
