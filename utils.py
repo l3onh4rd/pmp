@@ -26,7 +26,11 @@ def check_for_dirs():
 
     if os.path.isdir('export'):
         os.mkdir('export')
-        print("\nLOG INFO:Created export directory since it was not found")
+        os.mkdir('export/ideal_plots_multiple')
+        os.mkdir('export/ideal_plots_single')
+        os.mkdir('export/test_plots_single')
+        os.mkdir('export/train_plots_single')
+        print("\nLOG INFO:Created export directories since they were not found")
 
 """
 Takes the result variable, add a header row
