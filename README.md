@@ -32,6 +32,14 @@ python main.py --backup
 python main.py --export --backup
 ```
 
+### Show Bokeh Plots
+
+That opens all bokeh plots in you default browser.
+
+```console
+python main.py --show-bokeh
+```
+
 ## How to run unit tests?
 
 ```console

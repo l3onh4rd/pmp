@@ -4,21 +4,22 @@ import sys
 import matplotlib.pyplot as plt
 
 # import own modules
+from modules.BokehPlotter import BokehPlotter
 from modules.DatabaseHandler import DatabaseHandler
 from modules.FunctionDeterminer import FunctionDeterminer
 from modules.basic_plotter_module.BasicPlotter import BasicPlotter
 import utils as utility
 from modules.datachecker_module.DataChecker import DataChecker
 
-# first copy the latest export to a backup folder (overwriting existing ones), delete the latest export
-
 EXPORT_CMD_STR = '--export'
 BACKUP_CMD_STR = '--backup'
+BOKEH_CMD_STR = '--show-bokeh'
 CMD_ARGUMENTS = sys.argv[1:]
 
 # check for required export and backup directory
 utility.check_for_dirs()
 
+# first copy the latest export to a backup folder (overwriting existing ones), delete the latest export
 if (BACKUP_CMD_STR in CMD_ARGUMENTS):
     utility.remove_latest_backup()
     utility.backup_latest_export()
@@ -53,8 +54,11 @@ database_handler.save_df(df_ideal_import, 'ideal_data')
 
 # determine best fitting function
 determiner = FunctionDeterminer(df_train_import, df_ideal_import)
-best_fitting, sq_error_df = determiner.determine_best_fit()
+best_fitting, sq_error_df, avg_delta_df = determiner.determine_best_fit()
+# save all squared errors for best fitting functions to sqlite
 database_handler.save_df(sq_error_df, 'squared_errors_for_best_fitting_functions')
+# save all average deltas for best fitting functions to sqlite
+database_handler.save_df(avg_delta_df, 'avg_delta')
 
 utility.create_result_csv(best_fitting)
 print('\nLOG INFO: Result csv file created')
@@ -65,26 +69,9 @@ for table_info in database_handler.get_amount_of_table_columns_and_rows(): print
 # close database connection
 database_handler.close_connection()
 
-# print plot with sq_erros
+# create bokeh plots
+bokeh_plotter = BokehPlotter(df_ideal_import, df_train_import, sq_error_df, BOKEH_CMD_STR in CMD_ARGUMENTS)
+bokeh_plotter.generate_plots()
 
-x_data = df_train_import['x'].tolist()
-
-for train, best_fit in best_fitting:
-    plt.plot(x_data, df_train_import[train], label=f'train data')
-    plt.plot(x_data, df_ideal_import[best_fit], label=f'best fit')
-
-# Add labels and title
-plt.xlabel('x')
-plt.ylabel(train)
-plt.title('Basic Line Chart')
-
-# Show the plot
-plt.show()
-plt.clf()
-
-for train, best_fit in best_fitting:
-    plt.bar(x_data, sq_error_df[train])
-
-plt.show()
-
+print('LOG INFO: Bokeh plots created')
 print('LOG INFO: Finished')

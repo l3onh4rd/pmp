@@ -35,6 +35,7 @@ def check_for_dirs():
     export_ideal_plots_single = Path('export/ideal_plots_single')
     export_test_plots_single = Path('export/test_plots_single')
     export_train_plots_single = Path('export/train_plots_single')
+    export_bokeh_plots = Path('export/bokeh_plots')
 
     try:
         if not os.path.isdir('backup'):
@@ -50,6 +51,7 @@ def check_for_dirs():
             export_ideal_plots_single.mkdir()
             export_test_plots_single.mkdir()
             export_train_plots_single.mkdir()
+            export_bokeh_plots.mkdir()
             print("\nLOG INFO: Created export directories since they were not found")
     except OSError as error:
         print(f'ERROR: OSError occured while creating export folders. More informtation \n{error}')
