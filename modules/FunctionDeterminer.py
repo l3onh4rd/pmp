@@ -69,7 +69,15 @@ class FunctionDeterminer:
             # print best fitting function and progress
             print(self.print_best_fitting_function(idx_train, column_count, function, best_fitting_function))
 
-        return best_fitting_functions, pd.DataFrame(self.__sq_error_dict)
+        # create output for avg delta sqlit
+        avg_delta_output = {
+            "x": ['x1', 'x2', 'x3', 'x4'],
+            "test_function": [test_function[0] for test_function in best_fitting_functions],
+            "delta": all_least_sq_errors_min,
+            "best_fitting_function": [best_fitting[1] for best_fitting in best_fitting_functions]
+        }
+        
+        return best_fitting_functions, pd.DataFrame(self.__sq_error_dict), pd.DataFrame(avg_delta_output)
 
     # print status message
     @staticmethod
