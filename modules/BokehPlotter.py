@@ -25,19 +25,20 @@ class BokehPlotter:
         output_file("./export/bokeh_plots/ideal_functions_bokeh_plot.html", mode="inline")
         ideal_bokeh_plot = self.generate_ideal_bokeh_plot()
         save(ideal_bokeh_plot)
+        # show the plot in the browser if cmd flag is set
+        if self.__show: show(ideal_bokeh_plot)
         # train functions
         output_file("./export/bokeh_plots/train_functions_bokeh_plot.html", mode="inline")
         train_bokeh_plot = self.generate_train_bokeh_plot()
         save(train_bokeh_plot)
+        # show the plot in the browser if cmd flag is set
+        if self.__show: show(train_bokeh_plot)
         # squared errors for best fitting functions
         output_file("./export/bokeh_plots/sq_errors_functions_bokeh_plot.html", mode="inline")
         error_bokeh_plot = self.generate_sq_error_bokeh_plot()
         save(error_bokeh_plot)
-        # show the plots in the browser if cmd flag is set
-        if self.__show:
-            show(ideal_bokeh_plot)
-            show(train_bokeh_plot)
-            show(error_bokeh_plot)
+        # show the plot in the browser if cmd flag is set
+        if self.__show: show(error_bokeh_plot)
 
     # generate bokeh plot for ideal functions
     def generate_ideal_bokeh_plot(self):
