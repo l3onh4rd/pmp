@@ -53,7 +53,7 @@ database_handler.save_df(df_train_import, 'train_data')
 database_handler.save_df(df_ideal_import, 'ideal_data')
 
 # determine best fitting function
-determiner = FunctionDeterminer(df_train_import, df_ideal_import)
+determiner = FunctionDeterminer(df_train_import, df_ideal_import, df_test_import)
 best_fitting, sq_error_df, avg_delta_df = determiner.determine_best_fit()
 # save all squared errors for best fitting functions to sqlite
 database_handler.save_df(sq_error_df, 'squared_errors_for_best_fitting_functions')

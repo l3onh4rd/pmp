@@ -63,7 +63,7 @@ def create_result_csv(result):
     # make a deep copy the the list to avoid call by reference issues
     export_result = copy.deepcopy(result)
     # add a header row for the csv file export
-    export_result.insert(0, ("train function", "best fitting function"))
+    export_result.insert(0, ("train function", "best fitting function", "b compare rate"))
     # save the list as csv file to the export directory
     try:
         with open('export/result.csv', mode='w', newline='') as file:
