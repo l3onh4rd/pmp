@@ -34,7 +34,7 @@ python main.py --export --backup
 
 ### Show Bokeh Plots
 
-That opens all bokeh plots in you default browser.
+That opens all bokeh plots in your default browser.
 
 ```console
 python main.py --show-bokeh
